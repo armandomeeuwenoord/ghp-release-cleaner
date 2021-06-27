@@ -1,5 +1,8 @@
 name: 'Package Release Cleaner'
 description: 'Cleans previous releases to Github Packages containing a specific pattern.'
+branding:
+  icon: delete
+  color: red
 inputs:
   userOrg:
     description: "The Github user or organization that owns the package in question"
