@@ -1,10 +1,28 @@
-categories = ["Fix", "Remove", "Initial", "Added"]
+categories = [
+  "Add",
+  "Adjust",
+  "Document",
+  "Extract",
+  "Fix",
+  "Generalize",
+  "Make",
+  "Migrate",
+  "Recategorize",
+  "Refactor",
+  "Re-integrate",
+  "Remove",
+  "Reorganize",
+  "Rename",
+  "Resize",
+  "Throw",
+  "Update"
+]
 category_delimiters = ["", ""]
-colored_output = true
+colored_output = false
 enable_debug = true
-enable_footers = false
 excluded_commit_tags = []
+enable_footers = true
 show_commit_hash = true
 show_prefix = false
-sort_by = "name"
+sort_by = "date"
 template_prefix = ""

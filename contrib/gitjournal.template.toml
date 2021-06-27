@@ -1,0 +1,47 @@
+[[tags]]
+tag = "sparkles"
+name = "Features"
+
+[[tags]]
+tag = "bug"
+name = "Bug Fixes"
+
+[[tags]]
+tag = "zap"
+name = "Performance Improvements"
+
+[[tags]]
+tag = "robot"
+name = "Continuous Integration Changes"
+
+[[tags]]
+tag = "construction_worker"
+name = "Infrastructure Updates"
+
+[[tags]]
+tag = "wrench"
+name = "Configuration Changes"
+
+[[tags]]
+tag = "art"
+name = "Artwork and Design Updates"
+
+[[tags]]
+tag = "book"
+name = "Documentation"
+
+[[tags]]
+tag = "recycle"
+name = "Refactorings"
+
+[[tags]]
+tag = "fire"
+name = "Removed Code"
+
+[[tags]]
+tag = "tada"
+name = "Initial Commit"
+
+[[tags]]
+tag = "default"
+name = "Default"
