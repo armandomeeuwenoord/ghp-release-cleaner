@@ -11,7 +11,7 @@ inputs:
     description: 'The name of the package for which to clean releases'
     required: true
   type:
-    description: 'The name of the package for which to clean releases'
+    description: 'The type of the packages'
     default: "container"
     required: true
   token:
@@ -25,5 +25,5 @@ outputs:
   numDeleted:
     description: 'The number of package versions that were deleted'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'index.js'

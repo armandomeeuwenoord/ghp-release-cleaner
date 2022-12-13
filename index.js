@@ -3,6 +3,7 @@ const _ = require('lodash');
 const fetch = require('node-fetch');
 const core = require('@actions/core');
 const github = require('@actions/github');
+const { isArray } = require('lodash');
 
 new Promise((resolve, reject) => {
     let org = core.getInput('userOrg');
@@ -26,11 +27,33 @@ new Promise((resolve, reject) => {
       })
       .then((response_json) => {
         _.forEach(response_json, (package_entry) => {
-          if (package_entry.name.indexOf(pattern) !== -1) {
-            result_packages.push({
-              "name": package_entry.name,
-              "id": package_entry.id
-            });
+          console.log('Package name: ', package_entry.name)
+
+          if (type === 'container') {
+            _.forEach(package_entry.metadata, (metadata) => {
+              if (isArray(metadata.tags)) {
+                _.forEach(metadata.tags, (tag) => {
+                  console.log('Checking for machting containers: ', pattern)
+
+                  if (tag.search(pattern) !== -1) {
+                    console.log('Found container with tag: ', tag)
+
+                    result_packages.push({
+                      "name": package_entry.name,
+                      "id": package_entry.id,
+                      "tag": tag
+                    });
+                  }
+                });
+              }
+            })
+          } else {
+            if (package_entry.metadata.indexOf(pattern) !== -1) {
+              result_packages.push({
+                "name": package_entry.name,
+                "id": package_entry.id
+              });
+            }
           }
         });
 
@@ -48,8 +71,14 @@ new Promise((resolve, reject) => {
 function delete_packages(result_packages, org, type, package_name, auth_token) {
   let num_packages = result_packages.length;
   let total_packages_deleted = 0;
+
+  console.log("Total deleting packages: ", num_packages);
+
   return new Promise((resolve, reject) => {
     _.forEach(result_packages, (package_entry) => {
+
+      console.log('Package deleted with ID:', package_entry.id);
+
       send_request(`/orgs/${org}/packages/${type}/${package_name}/versions/${package_entry.id}`, 'DELETE', null, auth_token)
         .then((response) => {
           console.log(`Status of request: ${response.statusCode}`);
