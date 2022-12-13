@@ -10,6 +10,10 @@ inputs:
   package:
     description: 'The name of the package for which to clean releases'
     required: true
+  type:
+    description: 'The name of the package for which to clean releases'
+    default: "container"
+    required: true
   token:
     description: 'The authorization token to use to access Github Packages for the specified package. Must have access to delete:packages for the specified package owned by the organization or user specified.'
     required: true

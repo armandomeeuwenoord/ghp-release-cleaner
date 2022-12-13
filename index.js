@@ -8,10 +8,11 @@ new Promise((resolve, reject) => {
     let org = core.getInput('userOrg');
     let auth_token = core.getInput('token');
     let package_name = core.getInput('package');
+    let type = core.getInput('type');
     let pattern = core.getInput('pattern');
 
     let result_packages = [];
-    let request = `/orgs/${org}/packages/npm/${package_name}/versions`;
+    let request = `/orgs/${org}/packages/${type}/${package_name}/versions`;
 
     send_request(request, 'GET', {
       "per_page": 100
@@ -33,7 +34,7 @@ new Promise((resolve, reject) => {
           }
         });
 
-        return delete_packages(result_packages, org, package_name, auth_token);
+        return delete_packages(result_packages, org, type, package_name, auth_token);
       });
 })
 .then((packages_deleted) => {
@@ -44,12 +45,12 @@ new Promise((resolve, reject) => {
   console.error(error);
 });
 
-function delete_packages(result_packages, org, package_name, auth_token) {
+function delete_packages(result_packages, org, type, package_name, auth_token) {
   let num_packages = result_packages.length;
   let total_packages_deleted = 0;
   return new Promise((resolve, reject) => {
     _.forEach(result_packages, (package_entry) => {
-      send_request(`/orgs/${org}/packages/npm/${package_name}/versions/${package_entry.id}`, 'DELETE', null, auth_token)
+      send_request(`/orgs/${org}/packages/${type}/${package_name}/versions/${package_entry.id}`, 'DELETE', null, auth_token)
         .then((response) => {
           console.log(`Status of request: ${response.statusCode}`);
           total_packages_deleted++;
